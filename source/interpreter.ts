@@ -104,7 +104,7 @@ export class Interpreter {
                     if (v.name == current.value) a = v.value;
                 });
                 if (!a) { console.error(`Variable not found: ${current.value}`); return; }
-                console.log("0x"+parseFloat(a).toString(16));
+                console.log("0x" + parseFloat(a).toString(16));
                 this.tokens.splice(index, 1);
                 continue;
             }
@@ -114,7 +114,7 @@ export class Interpreter {
                     if (v.name == current.value) a = v.value;
                 });
                 if (!a) { console.error(`Variable not found: ${current.value}`); return; }
-                console.log("0b"+parseFloat(a).toString(2));
+                console.log("0b" + parseFloat(a).toString(2));
                 this.tokens.splice(index, 1);
                 continue;
             }
