@@ -54,7 +54,7 @@ export class Tokenizer {
                 this.tokens.push({ type: 'variable_read', value: value });
                 continue;
             }
-            if (input[counter] == ';') {
+            if (input[counter] == ';' || input[counter] == '\n') {
                 this.tokens.push({ type: 'end_of_statement', value: ';' });
                 counter++;
                 continue;
