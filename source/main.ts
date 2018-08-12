@@ -1,7 +1,10 @@
 import { Tokenizer } from "./tokenizer";
 import { Interpreter } from "./interpreter";
 
-const code = "1 + 9 * 2";
+import { readFileSync } from "fs";
+
+const fileData = readFileSync('test.op');
+const code = fileData.toString();
 
 let tokenizer = new Tokenizer(code);
 let interpreter = new Interpreter(tokenizer.tokens);
