@@ -45,6 +45,10 @@ export class Interpreter {
                     case '*': { result *= rhs; break; }
                     case '/': { result /= rhs; break; }
                     case '^': { result = Math.pow(result, rhs); break; }
+                    case '&': { result &= rhs; break; }
+                    case '|': { result |= rhs; break; }
+                    case '<': { result <<= rhs; break; }
+                    case '>': { result >>= rhs; break; }
                     default: { console.error("Error: Operator not supported"); return; }
                 }
                 this.tokens[index - 1] = { type: 'value', value: result.toString() };
