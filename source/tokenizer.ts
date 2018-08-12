@@ -32,6 +32,28 @@ export class Tokenizer {
                 this.tokens.push({ type: 'value', value: value });
                 continue;
             }
+            if (input[counter] == '=') {
+                let value = '';
+                counter++;
+                while (/[a-zA-Z0-9]/.test(input[counter])) {
+                    value += input[counter];
+                    counter++;
+
+                }
+                this.tokens.push({ type: 'variable_write', value: value });
+                continue;
+            }
+            if (input[counter] == '@') {
+                let value = '';
+                counter++;
+                while (/[a-zA-Z0-9]/.test(input[counter])) {
+                    value += input[counter];
+                    counter++;
+
+                }
+                this.tokens.push({ type: 'variable_read', value: value });
+                continue;
+            }
 
             console.error(`Unrecognized token: ${input[counter]}`);
             return true;
