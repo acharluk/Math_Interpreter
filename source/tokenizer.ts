@@ -26,7 +26,7 @@ export class Tokenizer {
             if (/[0-9]/.test(input[counter])) {
                 let value = input[counter];
                 counter++;
-                while (/[0-9]/.test(input[counter])) {
+                while (/[0-9]/.test(input[counter]) || (value.length == 1 && input[counter] == '.')) {
                     value += input[counter];
                     counter++;
                 }
