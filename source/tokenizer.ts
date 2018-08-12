@@ -54,6 +54,11 @@ export class Tokenizer {
                 this.tokens.push({ type: 'variable_read', value: value });
                 continue;
             }
+            if (input[counter] == ';') {
+                this.tokens.push({ type: 'end_of_statement', value: ';' });
+                counter++;
+                continue;
+            }
 
             console.error(`Unrecognized token: ${input[counter]}`);
             return true;

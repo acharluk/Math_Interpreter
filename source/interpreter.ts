@@ -42,9 +42,23 @@ export class Interpreter {
                 return this.run();
             }
             if (current.type == 'variable_write') {
-                console.log("Variable write", current);
-                this.tokens.splice(index, 1);
-                index++;
+                // Find next end_of_statement, it can be a ';' or an EOF
+                let eos = this.tokens.length - 1;
+                for (let j = index; j < this.tokens.length; j++) {
+                    if (this.tokens[j].type == 'end_of_statement') {
+                        eos = j;
+                        break;
+                    }
+                }
+                // Find a solution to save to the variable
+                let result = this.resolve(index + 1, eos);
+                if (!result) {
+                    console.error(`Error trying to find a solution for: ${current.value}`);
+                    return;
+                }
+                this.variables.push({ name: current.value, value: result.toString() });
+                // Remove tokens from the solution
+                this.tokens.splice(index, eos - index);
                 continue;
             }
             if (current.type == 'variable_read') {
@@ -54,9 +68,17 @@ export class Interpreter {
                 });
                 if (!a) { console.error(`Variable not found: ${current.value}`); return; }
                 this.tokens[index] = { type: 'value', value: a.value };
-                index++;
+                continue;
+            }
+            if (current.type == 'end_of_statement') {
+                this.tokens.splice(index, 1);
                 continue;
             }
         }
+    }
+
+    resolve(indexStart: number, indexEnd: number) {
+        let newTokens = this.tokens.slice(indexStart, indexEnd);
+        return new Interpreter(newTokens).run();
     }
 }
