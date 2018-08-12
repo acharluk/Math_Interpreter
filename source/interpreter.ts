@@ -12,6 +12,12 @@ export class Interpreter {
             return this.tokens[0].value;
         }
         let index = 0;
+        for (let j = index; j < this.tokens.length; j++) {
+            if (this.tokens[j].value == '*' || this.tokens[j].value == '/') {
+                index = j;
+                break;
+            }
+        }
         while (index < this.tokens.length) {
             let current = this.tokens[index];
             if (current.type == 'value') { index++; continue; }
