@@ -50,7 +50,6 @@ export class Tokenizer {
                 while (/[a-zA-Z0-9]/.test(input[counter])) {
                     value += input[counter];
                     counter++;
-
                 }
                 this.tokens.push({ type: 'variable_read', value: value });
                 continue;
@@ -58,6 +57,16 @@ export class Tokenizer {
             if (input[counter] == ';' || input[counter] == '\n') {
                 this.tokens.push({ type: 'end_of_statement', value: ';' });
                 counter++;
+                continue;
+            }
+            if (input[counter] == '$') {
+                let value = '';
+                counter++;
+                while (/[a-zA-Z0-9]/.test(input[counter])) {
+                    value += input[counter];
+                    counter++;
+                }
+                this.tokens.push({ type: 'print', value: value });
                 continue;
             }
 

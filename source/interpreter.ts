@@ -88,6 +88,16 @@ export class Interpreter {
                 this.tokens.splice(index, 1);
                 continue;
             }
+            if (current.type == 'print') {
+                let a;
+                this.variables.forEach(v => {
+                    if (v.name == current.value) a = v.value;
+                });
+                if (!a) { console.error(`Variable not found: ${current.value}`); return; }
+                console.log(a);
+                this.tokens.splice(index, 1);
+                continue;
+            }
         }
     }
 
