@@ -9,14 +9,22 @@ export class Interpreter {
     tokens: Token[];
     variables: Variable[];
 
-    constructor(tokens: Token[]) {
+    constructor(tokens: Token[], variables?: Variable[]) {
         this.tokens = tokens;
-        this.variables = [];
+        this.variables = variables || [];
     }
 
     run(): string | undefined {
         if (this.tokens.length <= 1) {
-            return this.tokens[0].value;
+            if (this.tokens[0].type == 'variable_read') {
+                let a;
+                this.variables.forEach(v => {
+                    if (v.name == this.tokens[0].value) a = v;
+                });
+                return a;
+            } else {
+                return this.tokens[0].value;
+            }
         }
         let index = 0;
         for (let j = index; j < this.tokens.length; j++) {
@@ -79,6 +87,6 @@ export class Interpreter {
 
     resolve(indexStart: number, indexEnd: number) {
         let newTokens = this.tokens.slice(indexStart, indexEnd);
-        return new Interpreter(newTokens).run();
+        return new Interpreter(newTokens, this.variables).run();
     }
 }
