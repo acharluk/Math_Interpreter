@@ -17,7 +17,8 @@ export class Tokenizer {
         let counter = 0;
         while (counter < input.length) {
             if (input[counter] == ' ') { counter++; continue; }
-            if (input[counter] == '+' || input[counter] == '-' || input[counter] == '*' || input[counter] == '/') {
+            if (input[counter] == '+' || input[counter] == '-' || input[counter] == '*' || input[counter] == '/'
+                || input[counter] == '^') {
                 this.tokens.push({ type: 'operator', value: input[counter] });
                 counter++;
                 continue;
