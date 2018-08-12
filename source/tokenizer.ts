@@ -60,13 +60,15 @@ export class Tokenizer {
                 continue;
             }
             if (input[counter] == '$') {
+                counter++;
+                let format = input[counter];
                 let value = '';
                 counter++;
                 while (/[a-zA-Z0-9]/.test(input[counter])) {
                     value += input[counter];
                     counter++;
                 }
-                this.tokens.push({ type: 'print', value: value });
+                this.tokens.push({ type: 'print_' + format, value: value });
                 continue;
             }
 
